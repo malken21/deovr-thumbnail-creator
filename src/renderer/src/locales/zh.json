@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "DeoVR 缩略图"
+  },
+  "videoSource": {
+    "title": "视频源",
+    "dropHint": "拖放视频或点击浏览",
+    "dropToReplace": "拖放以替换"
+  },
+  "projection": {
+    "title": "投影方式",
+    "vr180sbs": "VR180 左右格式",
+    "vr360": "VR360 等距柱状投影",
+    "flat": "平面视频",
+    "eye": "眼睛",
+    "leftEye": "左眼",
+    "rightEye": "右眼"
+  },
+  "playback": {
+    "title": "播放"
+  },
+  "camera": {
+    "title": "相机",
+    "yaw": "水平旋转",
+    "pitch": "垂直旋转",
+    "fov": "视野角度"
+  },
+  "textOverlays": {
+    "title": "文字叠加",
+    "addHint": "点击 + 添加文字",
+    "placeholder": "输入文字...",
+    "size": "大小",
+    "xPosition": "X 位置",
+    "yPosition": "Y 位置",
+    "textColor": "文字颜色",
+    "strokeColor": "描边颜色",
+    "strokeWidth": "描边宽度",
+    "custom": "自定义",
+    "font": "字体",
+    "uploadFont": "上传字体",
+    "customFonts": "自定义字体",
+    "presetFonts": "预设字体"
+  },
+  "stamps": {
+    "title": "贴纸",
+    "selectStamp": "选择贴纸...",
+    "builtIn": "内置",
+    "saved": "已保存",
+    "uploadCustom": "上传自定义",
+    "saveToLibrary": "将上传的贴纸保存到库",
+    "savedLibrary": "已保存贴纸库",
+    "activeStamps": "当前贴纸",
+    "addHint": "从下拉菜单选择贴纸添加",
+    "scale": "缩放"
+  },
+  "export": {
+    "title": "导出",
+    "button": "导出缩略图",
+    "resolution": "分辨率"
+  },
+  "colors": {
+    "white": "白色",
+    "black": "黑色",
+    "red": "红色",
+    "green": "绿色",
+    "blue": "蓝色",
+    "yellow": "黄色",
+    "magenta": "品红",
+    "cyan": "青色"
+  },
+  "viewer": {
+    "noVideo": "未加载视频",
+    "getStarted": "拖放视频开始制作！",
+    "dropHint": "支持 VR180/VR360 和平面视频格式"
+  },
+  "language": {
+    "title": "语言",
+    "en": "英语",
+    "ja": "日语",
+    "zh": "中文",
+    "ko": "韩语",
+    "es": "西班牙语"
+  }
+}

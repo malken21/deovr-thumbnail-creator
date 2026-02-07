@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "DeoVR Miniatura"
+  },
+  "videoSource": {
+    "title": "Fuente de Video",
+    "dropHint": "Arrastra el video aquí o haz clic para explorar",
+    "dropToReplace": "Arrastra para reemplazar"
+  },
+  "projection": {
+    "title": "Proyección",
+    "vr180sbs": "VR180 Lado a Lado",
+    "vr360": "VR360 Equirrectangular",
+    "flat": "Video Plano",
+    "eye": "Ojo",
+    "leftEye": "Ojo Izquierdo",
+    "rightEye": "Ojo Derecho"
+  },
+  "playback": {
+    "title": "Reproducción"
+  },
+  "camera": {
+    "title": "Cámara",
+    "yaw": "Guiñada",
+    "pitch": "Cabeceo",
+    "fov": "Campo Visual"
+  },
+  "textOverlays": {
+    "title": "Superposición de Texto",
+    "addHint": "Haz clic en + para agregar texto",
+    "placeholder": "Ingresa texto...",
+    "size": "Tamaño",
+    "xPosition": "Posición X",
+    "yPosition": "Posición Y",
+    "textColor": "Color de Texto",
+    "strokeColor": "Color de Borde",
+    "strokeWidth": "Ancho de Borde",
+    "custom": "Personalizado",
+    "font": "Fuente",
+    "uploadFont": "Subir Fuente",
+    "customFonts": "Fuentes Personalizadas",
+    "presetFonts": "Fuentes Preestablecidas"
+  },
+  "stamps": {
+    "title": "Sellos",
+    "selectStamp": "Seleccionar sello...",
+    "builtIn": "Incorporado",
+    "saved": "Guardado",
+    "uploadCustom": "Subir Personalizado",
+    "saveToLibrary": "Guardar sellos subidos en la biblioteca",
+    "savedLibrary": "Biblioteca de Sellos Guardados",
+    "activeStamps": "Sellos Activos",
+    "addHint": "Selecciona un sello del menú desplegable para agregar",
+    "scale": "Escala"
+  },
+  "export": {
+    "title": "Exportar",
+    "button": "Exportar Miniatura",
+    "resolution": "Resolución"
+  },
+  "colors": {
+    "white": "Blanco",
+    "black": "Negro",
+    "red": "Rojo",
+    "green": "Verde",
+    "blue": "Azul",
+    "yellow": "Amarillo",
+    "magenta": "Magenta",
+    "cyan": "Cian"
+  },
+  "viewer": {
+    "noVideo": "No hay video cargado",
+    "getStarted": "¡Arrastra un video para comenzar!",
+    "dropHint": "Compatible con formatos VR180/VR360 y video plano"
+  },
+  "language": {
+    "title": "Idioma",
+    "en": "Inglés",
+    "ja": "Japonés",
+    "zh": "Chino",
+    "ko": "Coreano",
+    "es": "Español"
+  }
+}

@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "DeoVR Thumbnail"
+  },
+  "videoSource": {
+    "title": "Video Source",
+    "dropHint": "Drop video here or click to browse",
+    "dropToReplace": "Drop to replace"
+  },
+  "projection": {
+    "title": "Projection",
+    "vr180sbs": "VR180 Side-by-Side",
+    "vr360": "VR360 Equirectangular",
+    "flat": "Flat Video",
+    "eye": "Eye",
+    "leftEye": "Left Eye",
+    "rightEye": "Right Eye"
+  },
+  "playback": {
+    "title": "Playback"
+  },
+  "camera": {
+    "title": "Camera",
+    "yaw": "Yaw",
+    "pitch": "Pitch",
+    "fov": "FOV"
+  },
+  "textOverlays": {
+    "title": "Text Overlays",
+    "addHint": "Click + to add text",
+    "placeholder": "Enter text...",
+    "size": "Size",
+    "xPosition": "X Position",
+    "yPosition": "Y Position",
+    "textColor": "Text Color",
+    "strokeColor": "Stroke Color",
+    "strokeWidth": "Stroke Width",
+    "custom": "Custom",
+    "font": "Font",
+    "uploadFont": "Upload Font",
+    "customFonts": "Custom Fonts",
+    "presetFonts": "Preset Fonts"
+  },
+  "stamps": {
+    "title": "Stamps",
+    "selectStamp": "Select stamp...",
+    "builtIn": "Built-in",
+    "saved": "Saved",
+    "uploadCustom": "Upload Custom",
+    "saveToLibrary": "Save uploaded stamps to library",
+    "savedLibrary": "Saved Stamps Library",
+    "activeStamps": "Active Stamps",
+    "addHint": "Select a stamp from dropdown to add",
+    "scale": "Scale"
+  },
+  "export": {
+    "title": "Export",
+    "button": "Export Thumbnail",
+    "resolution": "Resolution"
+  },
+  "colors": {
+    "white": "White",
+    "black": "Black",
+    "red": "Red",
+    "green": "Green",
+    "blue": "Blue",
+    "yellow": "Yellow",
+    "magenta": "Magenta",
+    "cyan": "Cyan"
+  },
+  "viewer": {
+    "noVideo": "No video loaded",
+    "getStarted": "Drop a video to get started!",
+    "dropHint": "Supports VR180/VR360 and flat video formats"
+  },
+  "language": {
+    "title": "Language",
+    "en": "English",
+    "ja": "Japanese",
+    "zh": "Chinese",
+    "ko": "Korean",
+    "es": "Spanish"
+  }
+}

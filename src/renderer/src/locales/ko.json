@@ -1,0 +1,84 @@
+{
+  "app": {
+    "title": "DeoVR 썸네일"
+  },
+  "videoSource": {
+    "title": "비디오 소스",
+    "dropHint": "비디오를 드롭하거나 클릭하여 찾아보기",
+    "dropToReplace": "드롭하여 교체"
+  },
+  "projection": {
+    "title": "투영 방식",
+    "vr180sbs": "VR180 사이드 바이 사이드",
+    "vr360": "VR360 정거 원통 도법",
+    "flat": "평면 비디오",
+    "eye": "눈",
+    "leftEye": "왼쪽 눈",
+    "rightEye": "오른쪽 눈"
+  },
+  "playback": {
+    "title": "재생"
+  },
+  "camera": {
+    "title": "카메라",
+    "yaw": "요 (수평)",
+    "pitch": "피치 (수직)",
+    "fov": "시야각"
+  },
+  "textOverlays": {
+    "title": "텍스트 오버레이",
+    "addHint": "+ 를 클릭하여 텍스트 추가",
+    "placeholder": "텍스트 입력...",
+    "size": "크기",
+    "xPosition": "X 위치",
+    "yPosition": "Y 위치",
+    "textColor": "텍스트 색상",
+    "strokeColor": "테두리 색상",
+    "strokeWidth": "테두리 두께",
+    "custom": "사용자 정의",
+    "font": "글꼴",
+    "uploadFont": "글꼴 업로드",
+    "customFonts": "사용자 정의 글꼴",
+    "presetFonts": "프리셋 글꼴"
+  },
+  "stamps": {
+    "title": "스탬프",
+    "selectStamp": "스탬프 선택...",
+    "builtIn": "기본 제공",
+    "saved": "저장됨",
+    "uploadCustom": "사용자 정의 업로드",
+    "saveToLibrary": "업로드한 스탬프를 라이브러리에 저장",
+    "savedLibrary": "저장된 스탬프 라이브러리",
+    "activeStamps": "활성 스탬프",
+    "addHint": "드롭다운에서 스탬프를 선택하여 추가",
+    "scale": "크기"
+  },
+  "export": {
+    "title": "내보내기",
+    "button": "썸네일 내보내기",
+    "resolution": "해상도"
+  },
+  "colors": {
+    "white": "흰색",
+    "black": "검정",
+    "red": "빨강",
+    "green": "초록",
+    "blue": "파랑",
+    "yellow": "노랑",
+    "magenta": "마젠타",
+    "cyan": "시안"
+  },
+  "viewer": {
+    "noVideo": "비디오가 로드되지 않음",
+    "getStarted": "비디오를 드롭하여 시작하세요!",
+    "dropHint": "VR180/VR360 및 평면 비디오 지원"
+  },
+  "language": {
+    "title": "언어",
+    "en": "영어",
+    "ja": "일본어",
+    "zh": "중국어",
+    "ko": "한국어",
+    "es": "스페인어"
+  }
+}

@@ -1,0 +1,267 @@
+@import "tailwindcss";
+
+@theme {
+  /* Default: Dark theme */
+  --color-background: oklch(0.145 0.014 285.82);
+  --color-foreground: oklch(0.985 0 0);
+  --color-card: oklch(0.145 0.014 285.82);
+  --color-card-foreground: oklch(0.985 0 0);
+  --color-primary: oklch(0.985 0 0);
+  --color-primary-foreground: oklch(0.205 0.015 285.82);
+  --color-secondary: oklch(0.269 0.012 285.82);
+  --color-secondary-foreground: oklch(0.985 0 0);
+  --color-muted: oklch(0.269 0.012 285.82);
+  --color-muted-foreground: oklch(0.708 0.015 285.82);
+  --color-accent: oklch(0.269 0.012 285.82);
+  --color-accent-foreground: oklch(0.985 0 0);
+  --color-destructive: oklch(0.396 0.141 25.72);
+  --color-destructive-foreground: oklch(0.985 0 0);
+  --color-border: oklch(0.269 0.012 285.82);
+  --color-input: oklch(0.269 0.012 285.82);
+  --color-ring: oklch(0.556 0.016 285.82);
+  --radius-sm: 0.25rem;
+  --radius-md: 0.375rem;
+  --radius-lg: 0.5rem;
+  --radius-xl: 0.75rem;
+}
+
+/* Light theme */
+:root[data-theme="light"] {
+  --color-background: oklch(0.985 0 0);
+  --color-foreground: oklch(0.145 0.014 285.82);
+  --color-card: oklch(0.985 0 0);
+  --color-card-foreground: oklch(0.145 0.014 285.82);
+  --color-primary: oklch(0.205 0.015 285.82);
+  --color-primary-foreground: oklch(0.985 0 0);
+  --color-secondary: oklch(0.92 0.008 285.82);
+  --color-secondary-foreground: oklch(0.205 0.015 285.82);
+  --color-muted: oklch(0.92 0.008 285.82);
+  --color-muted-foreground: oklch(0.45 0.012 285.82);
+  --color-accent: oklch(0.92 0.008 285.82);
+  --color-accent-foreground: oklch(0.205 0.015 285.82);
+  --color-destructive: oklch(0.55 0.2 25.72);
+  --color-destructive-foreground: oklch(0.985 0 0);
+  --color-border: oklch(0.85 0.008 285.82);
+  --color-input: oklch(0.85 0.008 285.82);
+  --color-ring: oklch(0.556 0.016 285.82);
+}
+
+/* Midnight Blue theme */
+:root[data-theme="midnight"] {
+  --color-background: oklch(0.18 0.04 260);
+  --color-foreground: oklch(0.92 0.02 240);
+  --color-card: oklch(0.22 0.045 260);
+  --color-card-foreground: oklch(0.92 0.02 240);
+  --color-primary: oklch(0.7 0.15 240);
+  --color-primary-foreground: oklch(0.18 0.04 260);
+  --color-secondary: oklch(0.28 0.05 260);
+  --color-secondary-foreground: oklch(0.92 0.02 240);
+  --color-muted: oklch(0.28 0.05 260);
+  --color-muted-foreground: oklch(0.65 0.04 240);
+  --color-accent: oklch(0.55 0.12 250);
+  --color-accent-foreground: oklch(0.92 0.02 240);
+  --color-destructive: oklch(0.5 0.18 25);
+  --color-destructive-foreground: oklch(0.92 0.02 240);
+  --color-border: oklch(0.32 0.05 260);
+  --color-input: oklch(0.32 0.05 260);
+  --color-ring: oklch(0.6 0.12 240);
+}
+
+/* OLED Creative - 漆黒に赤が映える、没入感重視 */
+:root[data-theme="oled-creative"] {
+  --color-background: #000000;
+  --color-foreground: #FFFFFF;
+  --color-card: #0A0A0A;
+  --color-card-foreground: #FFFFFF;
+  --color-primary: #FF3B30;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #1C1C1C;
+  --color-secondary-foreground: #FFFFFF;
+  --color-muted: #262626;
+  --color-muted-foreground: #A3A3A3;
+  --color-accent: #FF3B30;
+  --color-accent-foreground: #FFFFFF;
+  --color-destructive: #FF3B30;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #262626;
+  --color-input: #262626;
+  --color-ring: #FF3B30;
+}
+
+/* Modern Studio - 編集作業に最適な低刺激な紫 */
+:root[data-theme="modern-studio"] {
+  --color-background: #1E1E1E;
+  --color-foreground: #E2E8F0;
+  --color-card: #252525;
+  --color-card-foreground: #E2E8F0;
+  --color-primary: #6366F1;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #2D2D2D;
+  --color-secondary-foreground: #E2E8F0;
+  --color-muted: #3D3D3D;
+  --color-muted-foreground: #94A3B8;
+  --color-accent: #6366F1;
+  --color-accent-foreground: #FFFFFF;
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #3D3D3D;
+  --color-input: #3D3D3D;
+  --color-ring: #6366F1;
+}
+
+/* Cyber Neon - VRガジェットを彷彿とさせる発光色 */
+:root[data-theme="cyber-neon"] {
+  --color-background: #0B0E14;
+  --color-foreground: #F0F0F0;
+  --color-card: #111827;
+  --color-card-foreground: #F0F0F0;
+  --color-primary: #39FF14;
+  --color-primary-foreground: #0B0E14;
+  --color-secondary: #1F2937;
+  --color-secondary-foreground: #F0F0F0;
+  --color-muted: #1F2937;
+  --color-muted-foreground: #9CA3AF;
+  --color-accent: #39FF14;
+  --color-accent-foreground: #0B0E14;
+  --color-destructive: #FF3B30;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #1F2937;
+  --color-input: #1F2937;
+  --color-ring: #39FF14;
+}
+
+/* Cool Dark - 質感と陰影を重視したOS的モダン */
+:root[data-theme="cool-dark"] {
+  --color-background: #1C1C1E;
+  --color-foreground: #F5F5F7;
+  --color-card: #2C2C2E;
+  --color-card-foreground: #F5F5F7;
+  --color-primary: #0A84FF;
+  --color-primary-foreground: #FFFFFF;
+  --color-secondary: #3A3A3C;
+  --color-secondary-foreground: #F5F5F7;
+  --color-muted: #48484A;
+  --color-muted-foreground: #A2A2A7;
+  --color-accent: #0A84FF;
+  --color-accent-foreground: #FFFFFF;
+  --color-destructive: #FF453A;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #3A3A3C;
+  --color-input: #3A3A3C;
+  --color-ring: #0A84FF;
+}
+
+/* Nordic Night - 長時間の作業でも目が疲れない北欧調 */
+:root[data-theme="nordic-night"] {
+  --color-background: #2E3440;
+  --color-foreground: #ECEFF4;
+  --color-card: #3B4252;
+  --color-card-foreground: #ECEFF4;
+  --color-primary: #88C0D0;
+  --color-primary-foreground: #2E3440;
+  --color-secondary: #434C5E;
+  --color-secondary-foreground: #ECEFF4;
+  --color-muted: #4C566A;
+  --color-muted-foreground: #D8DEE9;
+  --color-accent: #88C0D0;
+  --color-accent-foreground: #2E3440;
+  --color-destructive: #BF616A;
+  --color-destructive-foreground: #ECEFF4;
+  --color-border: #4C566A;
+  --color-input: #4C566A;
+  --color-ring: #88C0D0;
+}
+
+/* Gold Obsidian - 高級感を演出するゴールド×黒 */
+:root[data-theme="gold-obsidian"] {
+  --color-background: #1A1A1B;
+  --color-foreground: #F1F1F1;
+  --color-card: #242424;
+  --color-card-foreground: #F1F1F1;
+  --color-primary: #D4AF37;
+  --color-primary-foreground: #1A1A1B;
+  --color-secondary: #2D2D2D;
+  --color-secondary-foreground: #F1F1F1;
+  --color-muted: #3D3D3D;
+  --color-muted-foreground: #A0A0A0;
+  --color-accent: #D4AF37;
+  --color-accent-foreground: #1A1A1B;
+  --color-destructive: #DC2626;
+  --color-destructive-foreground: #F1F1F1;
+  --color-border: #3D3D3D;
+  --color-input: #3D3D3D;
+  --color-ring: #D4AF37;
+}
+
+/* Hacker Mode - Matrix風のストイックな開発者感 */
+:root[data-theme="hacker-mode"] {
+  --color-background: #0D0208;
+  --color-foreground: #00FF41;
+  --color-card: #0F0F0F;
+  --color-card-foreground: #00FF41;
+  --color-primary: #00FF41;
+  --color-primary-foreground: #0D0208;
+  --color-secondary: #1A1A1A;
+  --color-secondary-foreground: #00FF41;
+  --color-muted: #1A1A1A;
+  --color-muted-foreground: #008F11;
+  --color-accent: #00FF41;
+  --color-accent-foreground: #0D0208;
+  --color-destructive: #FF0000;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #003B00;
+  --color-input: #1A1A1A;
+  --color-ring: #00FF41;
+}
+
+/* Rose Quartz - 華やかで親しみやすいクリエイティブ */
+:root[data-theme="rose-quartz"] {
+  --color-background: #18181B;
+  --color-foreground: #FFF1F2;
+  --color-card: #27272A;
+  --color-card-foreground: #FFF1F2;
+  --color-primary: #FB7185;
+  --color-primary-foreground: #18181B;
+  --color-secondary: #3F3F46;
+  --color-secondary-foreground: #FFF1F2;
+  --color-muted: #52525B;
+  --color-muted-foreground: #FDA4AF;
+  --color-accent: #FB7185;
+  --color-accent-foreground: #18181B;
+  --color-destructive: #EF4444;
+  --color-destructive-foreground: #FFFFFF;
+  --color-border: #3F3F46;
+  --color-input: #3F3F46;
+  --color-ring: #FB7185;
+}
+
+* {
+  border-color: var(--color-border);
+}
+
+body {
+  background-color: var(--color-background);
+  color: var(--color-foreground);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--color-background);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--color-muted);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-muted-foreground);
+}
