@@ -100,7 +100,3 @@ npm run test
 - Zustand (状態管理)
 - Vitest (テスト)
 - ESLint / Prettier (静的解析・フォーマット)
-
-## ライセンス
-
-ISC
