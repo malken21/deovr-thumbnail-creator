@@ -49,6 +49,7 @@ jobs:
         run: npm ci
 
       - name: Build and Release
+        shell: bash
         run: |
           case "${{ matrix.os }}" in
             windows)
