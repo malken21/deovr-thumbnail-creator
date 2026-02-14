@@ -26,6 +26,7 @@
     "directories": {
       "output": "release"
     },
+    "artifactName": "${name}-${version}-${arch}.${ext}",
     "files": [
       "dist/**/*",
       "dist-electron/**/*"
