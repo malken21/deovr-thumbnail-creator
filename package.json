@@ -1,6 +1,10 @@
 {
   "name": "deovr-thumbnail",
   "version": "1.0.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/malken21/deovr-thumbnail-creator.git"
+  },
   "description": "VR180 Thumbnail Creator for DeoVR",
   "main": "dist-electron/main/index.js",
   "scripts": {
@@ -59,7 +63,14 @@
     "nsis": {
       "oneClick": false,
       "allowToChangeInstallationDirectory": true
-    }
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "malken21",
+        "repo": "deovr-thumbnail-creator"
+      }
+    ]
   },
   "keywords": [
     "electron",
