@@ -1,8 +1,10 @@
 import { useRef, useMemo, useEffect } from 'react'
-import { useFrame, useThree } from '@react-three/fiber'
+import { useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { useStore } from '../../store/useStore'
-import type { ProjectionType } from '../../types/app'
+
+import vertexShader from './shaders/vertex.glsl'
+import fragmentShader from './shaders/fragment.glsl'
 
 interface VideoSphereProps {
   texture: THREE.VideoTexture
@@ -13,33 +15,31 @@ export function VideoSphere({ texture }: VideoSphereProps) {
   const { projection, eye, fov } = useStore()
   const { camera } = useThree()
 
-  const clonedTexture = useMemo(() => {
-    const clone = texture.clone()
-    clone.needsUpdate = true
-    // Set wrapping for proper equirectangular mapping
-    clone.wrapS = THREE.RepeatWrapping
-    clone.wrapT = THREE.ClampToEdgeWrapping
-    return clone
+  // Configure texture settings for optimal quality
+  useEffect(() => {
+    // Linear filter is critical for smooth interpolation in shader
+    texture.minFilter = THREE.LinearFilter
+    texture.magFilter = THREE.LinearFilter
+    texture.generateMipmaps = false
+    texture.needsUpdate = true
   }, [texture])
 
-  useMemo(() => {
-    if (projection === 'VR180_SBS') {
-      clonedTexture.repeat.set(0.5, 1)
-      clonedTexture.offset.set(eye === 'left' ? 0 : 0.5, 0)
-    } else if (projection === 'VR360_EQUI') {
-      clonedTexture.repeat.set(1, 1)
-      clonedTexture.offset.set(0, 0)
-    } else {
-      clonedTexture.repeat.set(1, 1)
-      clonedTexture.offset.set(0, 0)
-    }
-  }, [projection, eye, clonedTexture])
+  // Shader Uniforms
+  const uniforms = useMemo(() => ({
+    map: { value: texture },
+    projectionType: { value: 0 }, // Will be updated
+    eye: { value: 0 } // Will be updated
+  }), [texture])
 
-  useFrame(() => {
-    if (clonedTexture) {
-      clonedTexture.needsUpdate = true
-    }
-  })
+  // Update uniforms when state changes
+  useEffect(() => {
+    let pType = 0
+    if (projection === 'VR180_SBS') pType = 1
+    else if (projection === 'VR360_EQUI') pType = 2
+
+    uniforms.projectionType.value = pType
+    uniforms.eye.value = eye === 'left' ? 0 : 1
+  }, [projection, eye, uniforms])
 
   // Reset camera for FLAT mode
   useEffect(() => {
@@ -50,78 +50,64 @@ export function VideoSphere({ texture }: VideoSphereProps) {
     }
   }, [projection, camera])
 
+  // Geometry management
   const geometry = useMemo(() => {
-    return createGeometry(projection)
-  }, [projection])
+    if (projection === 'FLAT') {
+      // Logic for FLAT plane size
+      // Default fallback size
+      let width = 16
+      let height = 9
+      const distance = 5
 
-  // Calculate plane size to fit viewport for FLAT mode
-  const flatPlaneSize = useMemo(() => {
-    if (projection !== 'FLAT') return { width: 16, height: 9, distance: 5 }
+      const video = texture.image as HTMLVideoElement
+      if (video && video.videoWidth && video.videoHeight) {
+        const videoAspect = video.videoWidth / video.videoHeight
+        const canvasAspect = 1200 / 720
+        const vFov = THREE.MathUtils.degToRad(fov)
+        const visibleHeight = 2 * Math.tan(vFov / 2) * distance
+        const visibleWidth = visibleHeight * canvasAspect
 
-    const video = texture.image as HTMLVideoElement
-    if (!video.videoWidth || !video.videoHeight) {
-      return { width: 16, height: 9, distance: 5 }
-    }
-
-    const videoAspect = video.videoWidth / video.videoHeight
-    const canvasAspect = 1200 / 720
-
-    const distance = 5
-    const vFov = THREE.MathUtils.degToRad(fov)
-    const visibleHeight = 2 * Math.tan(vFov / 2) * distance
-    const visibleWidth = visibleHeight * canvasAspect
-
-    let width: number, height: number
-    if (videoAspect > canvasAspect) {
-      width = visibleWidth * 0.95
-      height = width / videoAspect
+        if (videoAspect > canvasAspect) {
+          width = visibleWidth * 0.95
+          height = width / videoAspect
+        } else {
+          height = visibleHeight * 0.95
+          width = height * videoAspect
+        }
+      }
+      return new THREE.PlaneGeometry(width, height)
     } else {
-      height = visibleHeight * 0.95
-      width = height * videoAspect
+      // For VR modes, use a standard Sphere. 
+      // Low segment count (60, 40) is sufficient because projection is handled in fragment shader.
+      // We render on BackSide, so we are inside the sphere.
+      return new THREE.SphereGeometry(500, 60, 40)
     }
+  }, [projection, texture, fov]) // Re-create on projection change
 
-    return { width, height, distance }
-  }, [projection, texture, fov])
+  // Calculate position/rotation based on projection
+  // For FLAT, push back. For VR, center at 0.
+  const position: [number, number, number] = projection === 'FLAT' ? [0, 0, -5] : [0, 0, 0]
 
-  if (projection === 'FLAT') {
-    return (
-      <mesh ref={meshRef} position={[0, 0, -flatPlaneSize.distance]}>
-        <planeGeometry args={[flatPlaneSize.width, flatPlaneSize.height]} />
-        <meshBasicMaterial map={clonedTexture} side={THREE.FrontSide} />
-      </mesh>
-    )
-  }
-
-  // VR180: half-sphere needs rotation to face forward
-  // VR360: full sphere, rotate to align texture center with camera view
-  const getMeshRotation = (): [number, number, number] => {
-    if (projection === 'VR180_SBS') {
-      return [0, -Math.PI / 2, 0]
-    } else if (projection === 'VR360_EQUI') {
-      // Rotate 180 degrees so the center of equirectangular image faces the camera
-      return [0, Math.PI, 0]
-    }
-    return [0, 0, 0]
-  }
+  // No special rotation needed for VR sphere as we handle orientation in shader/camera.
+  // But usually VR180 is viewed looking forward.
+  // We might need to rotate the sphere if the texture mapping assumes different alignment.
+  // Our shader assumes -Z is forward (u=0.5).
+  // If camera is at 0 looking at -Z, it matches.
 
   return (
     <mesh
       ref={meshRef}
       geometry={geometry}
-      scale={[-1, 1, 1]}
-      rotation={getMeshRotation()}
+      position={position}
+      scale={[1, 1, 1]} // Normal scale. Shader handles mapping.
     >
-      <meshBasicMaterial map={clonedTexture} side={THREE.BackSide} />
+      {/* Use ShaderMaterial for all modes (including FLAT, it handles it) */}
+      <shaderMaterial
+        vertexShader={vertexShader}
+        fragmentShader={fragmentShader}
+        uniforms={uniforms}
+        side={projection === 'FLAT' ? THREE.FrontSide : THREE.BackSide}
+      />
     </mesh>
   )
-}
-
-function createGeometry(projection: ProjectionType): THREE.BufferGeometry {
-  if (projection === 'VR180_SBS') {
-    return new THREE.SphereGeometry(500, 60, 40, Math.PI / 2, Math.PI, 0, Math.PI)
-  } else if (projection === 'VR360_EQUI') {
-    return new THREE.SphereGeometry(500, 60, 40)
-  } else {
-    return new THREE.PlaneGeometry(16, 9)
-  }
 }

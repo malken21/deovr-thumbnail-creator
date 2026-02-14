@@ -1,71 +1,98 @@
 # DeoVR Thumbnail Creator
 
-A desktop app for creating VR180/VR360 video thumbnails with ease.
+VR180/VR360動画のサムネイルを簡単に作成できるデスクトップアプリです。
 
-## Why I Built This
+## 開発の経緯
 
-As a VR content creator, I found making thumbnails frustrating:
+VRコンテンツクリエイターとして、サムネイル作成に不満を感じていました：
 
-- Opening heavy image editing software just for a thumbnail? Tedious.
-- VR180 SBS videos aren't flat like YouTube thumbnails - cropping them properly is a pain.
-- I just wanted to pick a frame, add some text and stamps, and export. That's it.
+- サムネイルのためだけに重い画像編集ソフトを開くのは面倒。
+- VR180 SBS動画はYouTubeのサムネイルのようなフラット画像とは異なり、適切な切り出しが難しい。
+- フレームを選んで、テキストやスタンプを追加して書き出すだけのシンプルなツールが欲しかった。
 
-So I built this tool. I'm not an engineer - this was made through vibe coding with AI assistance.
+そこでこのツールを作成しました。私はエンジニアではありませんが、AIとの「Vibe Coding」によって制作されました。
 
-## Features
+## 機能
 
-- **VR180/VR360 Preview** - View your video in proper equirectangular projection
-- **Frame Capture** - Scrub through video and pick the perfect moment
-- **Text Overlays** - Add titles with customizable fonts, colors, and effects
-- **Stamp Library** - Built-in VR180, VR360, 4K, 8K badges + custom stamp uploads
-- **11 Themes** - Dark, Light, OLED, Cyber Neon, and more
-- **Multi-language** - English, Japanese, Korean, Chinese, Spanish
-- **Export** - Save as PNG with all overlays baked in
+- **VR180/VR360 プレビュー** - 正距円筒図法（Equirectangular）などで動画を正しく表示
+- **フレームキャプチャ** - 動画をスクラブして完璧な瞬間を選択
+- **テキストオーバーレイ** - カスタマイズ可能なフォント、色、エフェクトでタイトルを追加
+- **スタンプライブラリ** - VR180, VR360, 4K, 8Kバッジなどの組み込みスタンプ + カスタムスタンプのアップロード
+- **11種類のテーマ** - ダーク、ライト、OLED、サイバーネオンなど
+- **多言語対応** - 英語、日本語、韓国語、中国語、スペイン語
+- **書き出し** - すべてのオーバーレイを含んだ状態でPNGとして保存
 
-## Download
+## ダウンロード
 
-Check the [Releases](../../releases) page for the latest builds:
+[Releases](../../releases) ページから最新のビルドを確認してください：
 
-- **macOS**: `.dmg` or `.zip` (ARM64 / Apple Silicon)
-- **Windows**: `.exe` installer or portable `.exe`
+- **macOS**: `.dmg` または `.zip` (ARM64 / Apple Silicon)
+- **Windows**: `.exe` インストーラー または ポータブル版 `.exe`
 
-## Usage
+## 使い方
 
-1. Drag & drop your VR video file (or click to browse)
-2. Use the timeline to find the frame you want
-3. Add text overlays and stamps as needed
-4. Adjust camera angle if desired
-5. Click "Export Thumbnail" and choose where to save
+1. VR動画ファイルをドラッグ＆ドロップ（またはクリックして選択）
+2. タイムラインを使って欲しいフレームを探す
+3. 必要に応じてテキストオーバーレイやスタンプを追加
+4. カメラアングルを調整
+5. 「サムネイルを書き出し」をクリックして保存場所を選択
 
-## Development
+## 開発
+
+### セットアップ
 
 ```bash
-# Install dependencies
+# 依存関係のインストール
 npm install
+```
 
-# Run in development mode
+### 開発サーバーの起動
+
+```bash
+# 開発モードで起動
 npm run dev
+```
 
-# Build for production
+### ビルド
+
+```bash
+# 本番用にビルド
 npm run build
 
-# Package for macOS
+# macOS用にパッケージ化
 npm run package:mac
 
-# Package for Windows
+# Windows用にパッケージ化
 npm run package:win
 ```
 
-## Tech Stack
+### 品質の維持（保全）
+
+コードの品質を保つために、以下のコマンドが利用可能です。
+
+```bash
+# 静的解析（Lint）の実行
+npm run lint
+
+# コードフォーマットの実行
+npm run format
+
+# テストの実行
+npm run test
+```
+
+## 技術スタック
 
 - Electron
 - React 19
 - TypeScript
 - Vite
-- Three.js (for VR rendering)
+- Three.js (VRレンダリング用)
 - Tailwind CSS
-- Zustand (state management)
+- Zustand (状態管理)
+- Vitest (テスト)
+- ESLint / Prettier (静的解析・フォーマット)
 
-## License
+## ライセンス
 
 ISC
