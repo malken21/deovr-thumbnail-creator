@@ -48,18 +48,29 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
+      - name: Remove existing release assets
+        uses: mknejp/delete-release-assets@v1
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ github.ref_name }}
+          assets: |
+            latest.yml
+            latest-mac.yml
+            latest-linux.yml
+        continue-on-error: true
+
       - name: Build and Release
         shell: bash
         run: |
           case "${{ matrix.os }}" in
             windows)
-              npm run package -- --win --${{ matrix.arch }}
+              npm run package -- --publish always --win --${{ matrix.arch }}
               ;;
             macos)
-              npm run package -- --mac --${{ matrix.arch }}
+              npm run package -- --publish always --mac --${{ matrix.arch }}
               ;;
             linux)
-              npm run package -- --linux --${{ matrix.arch }}
+              npm run package -- --publish always --linux --${{ matrix.arch }}
               ;;
           esac
         env:
