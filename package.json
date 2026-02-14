@@ -51,6 +51,7 @@
         "deb",
         "rpm"
       ],
+      "maintainer": "marumasa",
       "category": "Video",
       "icon": "build/icon.png"
     },
@@ -65,7 +66,7 @@
     "thumbnail",
     "deovr"
   ],
-  "author": "",
+  "author": "marumasa",
   "license": "ISC",
   "dependencies": {
     "@react-three/drei": "^10.7.7",
