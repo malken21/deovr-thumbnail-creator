@@ -26,8 +26,9 @@ VRコンテンツクリエイターとして、サムネイル作成に不満を
 
 [Releases](../../releases) ページから最新のビルドを確認してください：
 
-- **macOS**: `.dmg` または `.zip` (ARM64 / Apple Silicon)
-- **Windows**: `.exe` インストーラー または ポータブル版 `.exe`
+- **Windows**: `.exe` インストーラー または ポータブル版 `.exe` (x64 / ARM64)
+- **macOS**: `.dmg` または `.zip` (x64 / ARM64 - Apple Silicon)
+- **Linux**: `.AppImage`, `.deb`, `.rpm` (x64 / ARM64)
 
 ## 使い方
 
@@ -64,7 +65,14 @@ npm run package:mac
 
 # Windows用にパッケージ化
 npm run package:win
+
+# Linux用にパッケージ化
+npm run package:linux
 ```
+
+### 自動リリース
+
+GitHub に `v*.*.*`（例：`v1.0.0`）のタグをプッシュすると、GitHub Actions が自動的に起動し、Windows, macOS, Linux 用のビルド（x64 および ARM64）が作成され、GitHub Release にアップロードされます。
 
 ### 品質の維持（保全）
 
