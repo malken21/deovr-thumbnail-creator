@@ -12,6 +12,9 @@ import { TextOverlay } from './TextOverlay'
 import { StampOverlay } from './StampOverlay'
 import { FOV_MIN, FOV_MAX, TARGET_WIDTH, TARGET_HEIGHT } from '../../types/app'
 
+/**
+ * カメラの制御（マウス操作による回転、FOV調整、オートトラッキング）を担当するコンポーネント
+ */
 function CameraController() {
   const { yaw, pitch, fov, projection } = useStore()
   const { camera } = useThree()
@@ -24,11 +27,13 @@ function CameraController() {
     }
   }, [fov, camera])
 
+  // 毎フレームの更新処理
   useFrame(() => {
     if (controlsRef.current && projection !== 'FLAT') {
       const yawRad = THREE.MathUtils.degToRad(yaw)
       const pitchRad = THREE.MathUtils.degToRad(pitch)
 
+      // 非常に小さい距離でカメラの注視点を設定し、回転を制御する
       const distance = 0.01
       const x = distance * Math.cos(pitchRad) * Math.sin(yawRad)
       const y = distance * Math.sin(pitchRad)
@@ -54,6 +59,9 @@ function CameraController() {
   )
 }
 
+/**
+ * 3Dシーン本体。VideoSphereを描画する
+ */
 function Scene() {
   const { texture, isReady } = useVideoTexture()
   const { videoPath } = useStore()
@@ -65,6 +73,10 @@ function Scene() {
   return <VideoSphere texture={texture} />
 }
 
+/**
+ * ビューアーのキャンバス領域を管理するコンポーネント
+ * キャンバス、オーバーレイ要素、ガイド線を 1200x720 の固定サイズの中で合成する
+ */
 export function SceneContainer() {
   const { t } = useI18n()
   const { fov, videoPath, setCanvasElement, setFov } = useStore()

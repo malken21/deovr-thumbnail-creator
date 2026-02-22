@@ -2,12 +2,16 @@ import { useState, useCallback, useRef } from 'react'
 import { useStore } from '../../store/useStore'
 import { TARGET_WIDTH, TARGET_HEIGHT } from '../../types/app'
 
+/**
+ * キャンバス上のテキスト要素を描画し、ドラッグによる移動を管理するコンポーネント
+ */
 export function TextOverlay() {
   const { textOverlays, updateTextOverlay } = useStore()
   const [dragging, setDragging] = useState<string | null>(null)
   const dragOffset = useRef({ x: 0, y: 0 })
   const containerRef = useRef<HTMLDivElement>(null)
 
+  // ドラッグ開始時の処理
   const handleMouseDown = useCallback(
     (e: React.MouseEvent, overlayId: string, overlayX: number, overlayY: number) => {
       e.preventDefault()

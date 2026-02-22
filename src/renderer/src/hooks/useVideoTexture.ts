@@ -3,46 +3,54 @@ import * as THREE from 'three'
 import { useStore } from '../store/useStore'
 import type { ProjectionType } from '../types/app'
 
-// Detect video projection type based on aspect ratio and filename hints
+/**
+ * アスペクト比とファイル名のヒントから動画の投影方式を判別する
+ * @param width 動画の幅
+ * @param height 動画の高さ
+ * @param filename ファイル名（ヒント用）
+ * @returns 判別された投影方式
+ */
 function detectProjectionType(width: number, height: number, filename?: string): ProjectionType {
   const aspectRatio = width / height
 
-  // Check filename for VR360 hints (case insensitive)
+  // ファイル名からVR360のヒントを探す（大文字小文字を区別しない）
   const lowerFilename = filename?.toLowerCase() || ''
 
-  // Use regex for more precise matching to avoid false positives like "1080p" matching "180"
-  // Pattern: 360 surrounded by non-digit characters or at start/end
+  // "1080p" などの解像度表記を "180" と誤認しないよう、数字の境界を確認
+  // パターン: 数字以外の文字に囲まれた、あるいは開始/終了位置にある "360"
   const is360Hint =
     /(?:^|[^0-9])360(?:[^0-9]|$)/.test(lowerFilename) ||
     lowerFilename.includes('equi') ||
     lowerFilename.includes('equirectangular')
 
-  // Match VR180 specifically, not resolution like 1080p
-  // Pattern: 180 surrounded by non-digit characters or at start/end
+  // VR180のヒントを探す
   const is180Hint =
     /(?:^|[^0-9])180(?:[^0-9]|$)/.test(lowerFilename) ||
     lowerFilename.includes('sbs') ||
     lowerFilename.includes('side_by_side') ||
     lowerFilename.includes('sidebyside')
 
-  // Debug logging
-  console.log('Filename detection:', { filename: lowerFilename, is360Hint, is180Hint, aspectRatio })
+  // デバッグ用ログ
+  console.log('投影方式の自動判別:', { filename: lowerFilename, is360Hint, is180Hint, aspectRatio })
 
-  // VR180 SBS: typically 2:1 (two 1:1 squares side by side)
-  // VR360: typically 2:1 (equirectangular)
+  // VR180 SBS: 一般的に 2:1 (1:1の正方形が横に2枚)
+  // VR360: 一般的に 2:1 (Equirectangular)
   if (aspectRatio >= 1.9 && aspectRatio <= 2.1) {
-    // If filename has 360 hint but no 180 hint, use VR360
+    // 360のヒントがあり、かつ180のヒントがない場合はVR360と判断
     if (is360Hint && !is180Hint) {
       return 'VR360_EQUI'
     }
-    // Default to VR180_SBS for 2:1 since it's more common for DeoVR
+    // DeoVRでは2:1はVR180_SBSであることが多いため、デフォルトをVR180にする
     return 'VR180_SBS'
   }
 
-  // Flat video: 16:9, 4:3, 21:9, etc.
+  // 平面動画: 16:9, 4:3, 21:9 等
   return 'FLAT'
 }
 
+/**
+ * 動画ファイルを Three.js のテクスチャとして管理するためのカスタムフック
+ */
 export function useVideoTexture() {
   const videoRef = useRef<HTMLVideoElement | null>(null)
   const textureRef = useRef<THREE.VideoTexture | null>(null)
@@ -50,6 +58,7 @@ export function useVideoTexture() {
 
   const { videoPath, videoFileName, isPlaying, setIsPlaying, setDuration, currentTime, setCurrentTime, setProjection } = useStore()
 
+  // 動画ファイルの読み込みとテクスチャの生成
   useEffect(() => {
     if (!videoPath) {
       if (videoRef.current) {
@@ -72,16 +81,17 @@ export function useVideoTexture() {
     video.preload = 'auto'
     video.src = videoPath
 
+    // メタデータの読み込み完了時
     const handleLoadedMetadata = () => {
       setDuration(video.duration)
       video.currentTime = 0
 
-      // Auto-detect projection type based on video dimensions and filename
-      // Use stored filename (original file name from user selection)
+      // 解像度とファイル名から投影方式を自動判別
       const detectedType = detectProjectionType(video.videoWidth, video.videoHeight, videoFileName || undefined)
       setProjection(detectedType)
     }
 
+    // 再生可能な状態になった時
     const handleCanPlay = () => {
       const texture = new THREE.VideoTexture(video)
       texture.colorSpace = THREE.SRGBColorSpace
@@ -94,10 +104,12 @@ export function useVideoTexture() {
       setIsReady(true)
     }
 
+    // 再生時間の更新時
     const handleTimeUpdate = () => {
       setCurrentTime(video.currentTime)
     }
 
+    // 再生終了時
     const handleEnded = () => {
       setIsPlaying(false)
     }
@@ -109,6 +121,7 @@ export function useVideoTexture() {
 
     video.load()
 
+    // クリーンアップ処理
     return () => {
       video.removeEventListener('loadedmetadata', handleLoadedMetadata)
       video.removeEventListener('canplay', handleCanPlay)
@@ -122,6 +135,7 @@ export function useVideoTexture() {
     }
   }, [videoPath, videoFileName, setDuration, setCurrentTime, setIsPlaying, setProjection])
 
+  // 再生/一時停止の状態同期
   useEffect(() => {
     if (videoRef.current) {
       if (isPlaying) {
@@ -134,12 +148,14 @@ export function useVideoTexture() {
     }
   }, [isPlaying, setIsPlaying])
 
+  /** 指定した時間へシークする */
   const seekTo = useCallback((time: number) => {
     if (videoRef.current) {
       videoRef.current.currentTime = time
     }
   }, [])
 
+  // 外部からの現在の再生時間（currentTime）の変更に追従
   useEffect(() => {
     if (videoRef.current && Math.abs(videoRef.current.currentTime - currentTime) > 0.5) {
       seekTo(currentTime)
@@ -147,9 +163,13 @@ export function useVideoTexture() {
   }, [currentTime, seekTo])
 
   return {
+    /** Three.js用ビデオテクスチャ */
     texture: textureRef.current,
+    /** HTMLVideoElement本体 */
     video: videoRef.current,
+    /** 準備完了フラグ */
     isReady,
+    /** シーク用関数 */
     seekTo
   }
 }

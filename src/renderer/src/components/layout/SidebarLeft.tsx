@@ -18,6 +18,10 @@ const stampOptions = [
   { value: 'triangle', label: 'Triangle' }
 ]
 
+/**
+ * 左側サイドバーコンポーネント
+ * 動画の読み込み、投影方式の選択、再生コントロール、テキスト・スタンプの管理を行う
+ */
 export function SidebarLeft() {
   const { t } = useI18n()
 
@@ -352,9 +356,8 @@ export function SidebarLeft() {
                               updateTextOverlay(overlay.id, { fontFamily: font.value })
                               setFontDropdownOpen(null)
                             }}
-                            className={`w-full text-left px-2 py-1.5 text-sm hover:bg-muted/50 transition-colors ${
-                              overlay.fontFamily === font.value ? 'bg-muted' : ''
-                            }`}
+                            className={`w-full text-left px-2 py-1.5 text-sm hover:bg-muted/50 transition-colors ${overlay.fontFamily === font.value ? 'bg-muted' : ''
+                              }`}
                             style={{ fontFamily: font.value }}
                           >
                             {font.label}
@@ -369,9 +372,8 @@ export function SidebarLeft() {
                             {customFonts.map((font) => (
                               <div
                                 key={font.id}
-                                className={`flex items-center justify-between px-2 py-1.5 hover:bg-muted/50 transition-colors ${
-                                  overlay.fontFamily === font.fontFamily ? 'bg-muted' : ''
-                                }`}
+                                className={`flex items-center justify-between px-2 py-1.5 hover:bg-muted/50 transition-colors ${overlay.fontFamily === font.fontFamily ? 'bg-muted' : ''
+                                  }`}
                               >
                                 <button
                                   type="button"
@@ -571,9 +573,8 @@ export function SidebarLeft() {
                           setSelectedStampType(opt.value)
                           setStampDropdownOpen(false)
                         }}
-                        className={`w-full flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-muted/50 transition-colors ${
-                          selectedStampType === opt.value ? 'bg-muted' : ''
-                        }`}
+                        className={`w-full flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-muted/50 transition-colors ${selectedStampType === opt.value ? 'bg-muted' : ''
+                          }`}
                       >
                         <img
                           src={`./stamps/${opt.value}.png`}
@@ -597,9 +598,8 @@ export function SidebarLeft() {
                               setSelectedStampType(saved.id)
                               setStampDropdownOpen(false)
                             }}
-                            className={`w-full flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-muted/50 transition-colors ${
-                              selectedStampType === saved.id ? 'bg-muted' : ''
-                            }`}
+                            className={`w-full flex items-center gap-2 px-2 py-1.5 text-sm hover:bg-muted/50 transition-colors ${selectedStampType === saved.id ? 'bg-muted' : ''
+                              }`}
                           >
                             <img
                               src={saved.imageUrl}

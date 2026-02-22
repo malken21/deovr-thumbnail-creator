@@ -2,40 +2,67 @@ import { create } from 'zustand'
 import type { ViewerState, ViewerActions, ProjectionType } from '../types/app'
 import { DEFAULT_YAW, DEFAULT_PITCH, DEFAULT_FOV } from '../types/app'
 
+/** テキストオーバーレイの設定 */
 interface TextOverlay {
+  /** 一意のID */
   id: string
+  /** 表示するテキスト内容 */
   text: string
+  /** X座標 (0-1200) */
   x: number
+  /** Y座標 (0-720) */
   y: number
+  /** フォントサイズ */
   fontSize: number
+  /** 文字色 (Hex) */
   color: string
+  /** 縁取りの色 (Hex) */
   strokeColor: string
+  /** 縁取りの太さ */
   strokeWidth: number
+  /** フォント種別 */
   fontFamily: string
 }
 
+/** カスタムフォントの情報 */
 interface CustomFont {
+  /** 一意のID */
   id: string
+  /** 表示名 */
   name: string
+  /** CSSで使用するフォントファミリー名 */
   fontFamily: string
 }
 
+/** スタンプ（バッジ）の設定 */
 interface Stamp {
+  /** 一意のID */
   id: string
+  /** スタンプの種類 (vr180, vr360等) */
   type: string
+  /** 表示名 */
   name: string
+  /** X座標 */
   x: number
+  /** Y座標 */
   y: number
+  /** 拡大率 */
   scale: number
+  /** カスタム画像の場合のURL（Base64） */
   imageUrl?: string
 }
 
+/** 保存済みのカスタムスタンプ */
 interface SavedStamp {
+  /** 一意のID */
   id: string
+  /** スタンプ名 */
   name: string
+  /** 画像URL（Base64） */
   imageUrl: string
 }
 
+/** テーマの定義 */
 export type ThemeType =
   | 'dark'
   | 'light'
@@ -49,38 +76,64 @@ export type ThemeType =
   | 'hacker-mode'
   | 'rose-quartz'
 
+/** テーマの状態 */
 interface ThemeState {
   theme: ThemeType
 }
 
+/** テーマを操作するアクション */
 interface ThemeActions {
+  /** テーマを切り替える */
   setTheme: (theme: ThemeType) => void
 }
 
+/** 書き出し・装飾に関する状態 */
 interface ExportState {
+  /** プレビュー用キャンバス要素 */
   canvasElement: HTMLCanvasElement | null
+  /** 配置されたテキストの一覧 */
   textOverlays: TextOverlay[]
+  /** 配置されたスタンプの一覧 */
   stamps: Stamp[]
+  /** ストレージに保存されているスタンプ */
   savedStamps: SavedStamp[]
+  /** ストレージに保存されているカスタムフォント */
   customFonts: CustomFont[]
 }
 
+/** 書き出し・装飾を操作するアクション */
 interface ExportActions {
+  /** キャンバス要素を登録する */
   setCanvasElement: (canvas: HTMLCanvasElement | null) => void
+  /** 新しいテキストを追加する */
   addTextOverlay: () => void
+  /** テキストのプロパティを更新する */
   updateTextOverlay: (id: string, updates: Partial<TextOverlay>) => void
+  /** テキストを削除する */
   removeTextOverlay: (id: string) => void
+  /** プリセットスタンプを追加する */
   addStamp: (type: string) => void
+  /** 保存済みスタンプから追加する */
   addStampFromSaved: (savedStampId: string) => void
+  /** 新しいカスタムスタンプを即座に追加する */
   addCustomStamp: (name: string, imageUrl: string) => void
+  /** カスタムスタンプをライブラリに保存する */
   saveCustomStamp: (name: string, imageUrl: string) => void
+  /** 保存済みスタンプを削除する */
   deleteSavedStamp: (id: string) => void
+  /** 保存済みスタンプを再読み込みする */
   loadSavedStamps: () => void
+  /** スタンプのプロパティを更新する */
   updateStamp: (id: string, updates: Partial<Stamp>) => void
+  /** スタンプを削除する */
   removeStamp: (id: string) => void
+  /** カスタムフォントを追加して登録する */
   addCustomFont: (name: string, fontData: string) => void
+  /** カスタムフォントを削除する */
   deleteCustomFont: (id: string) => void
+  /** カスタムフォントを再読み込みする */
   loadCustomFonts: () => void
+  /** 現在のプレビューを画像として書き出す (メインプロセス呼び出し) */
   exportThumbnail: () => void
 }
 
